@@ -1,0 +1,28 @@
+# tomcat configuration
+server:
+    port: 8081
+    servlet :
+      context-path: /api
+
+
+
+# mybatis configuration
+mybatis: 
+  configuration:
+    map-underscore-to-camel-case: true
+
+# database configuration
+spring.datasource: 
+  url: jdbc:postgresql://localhost:5432/myappdb
+  username: postgres
+  password: root
+  driverClassName: org.postgresql.Driver
+
+# dev/release
+spring.profiles.active: dev
+#spring.profiles.active: prd
+
+# project
+jp.co.nttdata.myapp:
+  refreshToken.expirationInterval: 5400000
+  accessToken.expirationInterval: 86400000
