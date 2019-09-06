@@ -1,8 +1,0 @@
-# log level
-logging.level: 
-  root: WARN
-  org.springframework: DEBUG
-  org.apache.coyote.http11.Http11InputBuffer: DEBUG
-  jp.co.nttdata.myapp: DEBUG
-  sample.mybatis.mapper: DEBUG
-  org.apache.ibatis: DEBUG
