@@ -13,10 +13,10 @@ mybatis:
 
 # database configuration
 spring.datasource: 
-  url: jdbc:postgresql://localhost:5432/myappdb
-  username: postgres
+  url: jdbc:mysql://localhost:3306/myappdb?serverTimezone=GMT%2B8
+  username: root
   password: root
-  driverClassName: org.postgresql.Driver
+  driverClassName: com.mysql.jdbc.Driver
 
 # dev/release
 spring.profiles.active: dev

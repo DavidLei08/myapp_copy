@@ -61,16 +61,14 @@ public interface PostRepository {
 
 
     @Insert("INSERT INTO post_info" +
-            " (post_id," +
-            " post_title," +
+            " (post_title," +
             " post_type," +
             " post_content," +
             " create_user," +
             " create_time," +
             " remark_count)" +
             " VALUES" +
-            " (COALESCE((SELECT MAX(post_id)+1 FROM post_info),0)," +
-            " #{postInfo.postTitle}," +
+            " (#{postInfo.postTitle}," +
             " #{postInfo.postType}," +
             " #{postInfo.postContent}," +
             " #{postInfo.createUser}," +

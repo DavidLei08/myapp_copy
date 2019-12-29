@@ -23,14 +23,12 @@ public interface RemarkRepository {
     public List<RemarkInfo> findByPostId(@Param("postId") Integer postId);
 
     @Insert("INSERT INTO post_remark" +
-            " (remark_id," +
-            " post_id," +
+            " (post_id," +
             " remark_content," +
             " remark_user," +
             " remark_time)" +
             " VALUES" +
-            " (COALESCE((SELECT MAX(remark_id)+1 FROM post_remark),0)," +
-            " #{remark.postId}," +
+            " (#{remark.postId}," +
             " #{remark.remarkContent}," +
             " #{remark.remarkUser}," +
             " #{remark.remarkTime})")

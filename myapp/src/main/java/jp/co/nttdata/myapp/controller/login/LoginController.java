@@ -3,13 +3,14 @@ package jp.co.nttdata.myapp.controller.login;
 
 import jp.co.nttdata.myapp.authorization.annotation.TokenAuthorization;
 import jp.co.nttdata.myapp.common.APIException;
+import jp.co.nttdata.myapp.common.BaseResponse;
 import jp.co.nttdata.myapp.common.Constants;
+import jp.co.nttdata.myapp.common.ResponseDataWrapper;
 import jp.co.nttdata.myapp.model.login.LoginDetail;
 import jp.co.nttdata.myapp.model.login.LoginUserInfo;
 import jp.co.nttdata.myapp.model.login.RegisterUserInfo;
 import jp.co.nttdata.myapp.service.login.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 @RestController
 public class LoginController {
 
+    private  static final BaseResponse NORMAL_RESPONSE = new BaseResponse();
 
     /**
      * 用户登录相关service
@@ -40,12 +42,15 @@ public class LoginController {
      * @return 用户登录结果信息
      */
     @RequestMapping(value="/login",method =RequestMethod.POST)
-    public LoginUserInfo userLogin(@RequestBody @Valid LoginDetail loginDetail, BindingResult result){
+    public BaseResponse userLogin(@RequestBody @Valid LoginDetail loginDetail,
+                                  BindingResult bResult){
         //判断输入信息校验是否有错
-        if(!result.hasErrors()){
+        if(!bResult.hasErrors()){
             //执行登录，接受登录结果
             LoginUserInfo userInfo=service.login(loginDetail);
-            return  userInfo;
+            ResponseDataWrapper<LoginUserInfo> result =
+                    new ResponseDataWrapper<LoginUserInfo>(userInfo);
+            return  result;
         }else{
             //抛出异常-请求参数格式不对
             throw  new APIException(HttpServletResponse.SC_BAD_REQUEST,
@@ -60,7 +65,8 @@ public class LoginController {
      * @return 注册结果
      */
     @RequestMapping(value = "/logon",method =RequestMethod.POST)
-    public String userRegister(@RequestBody  @Valid RegisterUserInfo userInfo,BindingResult result){
+    public BaseResponse userRegister(@RequestBody  @Valid RegisterUserInfo userInfo,
+                                     BindingResult result){
         //判断校验是否有误
         if(!result.hasErrors()){
             //执行注册
@@ -70,7 +76,7 @@ public class LoginController {
             throw  new APIException(HttpServletResponse.SC_BAD_REQUEST,
                     "request parameters formatter is wrong ");
         }
-        return  "ok";
+        return  NORMAL_RESPONSE;
     }
 
     /**
@@ -80,11 +86,27 @@ public class LoginController {
      */
     @TokenAuthorization
     @RequestMapping(value = "/logout",method =RequestMethod.GET)
-    public String userLogout( HttpServletRequest request){
+    public BaseResponse userLogout( HttpServletRequest request){
         //从header中取得用户名
         String   username=request.getHeader(Constants.REQ_HEADER_USER_NAME_KEY);
         //执行登出
         service.logout(username);
-        return  "ok";
+        return  NORMAL_RESPONSE;
+    }
+
+    @RequestMapping(value = "/test",method =RequestMethod.GET)
+    public BaseResponse testCommon(){
+        LoginUserInfo data = new LoginUserInfo();
+        data.setAccessToken("455454_dasd4_4545");
+        data.setDearName("南风");
+        data.setUsername("DavidLei08");
+        ResponseDataWrapper<LoginUserInfo> result =
+                new ResponseDataWrapper<LoginUserInfo>(data);
+        return result;
+    }
+
+    @RequestMapping(value = "/test_err",method =RequestMethod.GET)
+    public String  testCommonErr(){
+        throw  new APIException(403,"this time request forbidden");
     }
 }

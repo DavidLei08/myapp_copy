@@ -49,7 +49,7 @@ public class AuthTokenManager {
     public String  validateAccessToken(String token,String username) {
         //token判空
         if (StringUtils.isEmpty(token)) {
-            logger.error("Access token is empty!");
+            logger.warn("Access token is empty!");
             return "empty";
         }
         logger.debug("checkAuthToken ： access_token({})", token);
@@ -57,7 +57,7 @@ public class AuthTokenManager {
         TokenData tokenData = authTokenRepository.selectTokenInfoByAccessToekn(token,username);
         //判断token信息是否取得
         if (tokenData == null) {
-            logger.error("Access token not exist![" + token + "]");
+            logger.warn("Access token not exist![" + token + "]");
 
 
             return "not exist";

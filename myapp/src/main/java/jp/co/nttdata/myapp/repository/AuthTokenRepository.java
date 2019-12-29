@@ -33,9 +33,9 @@ public interface AuthTokenRepository {
 
 
     @Insert( "INSERT INTO token_data\n" +
-            "        (token_id,username,access_token,access_token_expiration_time)\n" +
+            "        (username,access_token,access_token_expiration_time)\n" +
             "        VALUES\n" +
-            "        ((SELECT MAX(token_id)+1 FROM token_data),#{data.username},#{data.accessToken},#{data.accessTokenExpirationTime})")
+            "        (#{data.username},#{data.accessToken},#{data.accessTokenExpirationTime})")
     public int insertAuthToken(@Param("data") TokenData tokenData);
 
 

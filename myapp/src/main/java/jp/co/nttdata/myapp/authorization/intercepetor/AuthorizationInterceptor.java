@@ -5,6 +5,9 @@ import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSONObject;
+import jp.co.nttdata.myapp.common.BaseResponse;
+import jp.co.nttdata.myapp.common.CommonInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
@@ -48,11 +51,15 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
                     response.addHeader("Access-Control-Allow-Origin", "*"); // TODO delete
                     // return 401
                     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    BaseResponse result =new BaseResponse(new CommonInfo("401","Access token unauthorized"));
+                    response.getWriter().print(JSONObject.toJSONString(result));
                     return false;
                 } else if (validResult.equals("not exist")||validResult.equals("expired")) {
                     response.addHeader("Access-Control-Allow-Origin", "*"); // TODO delete
                     // return 403
                     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    BaseResponse result =new BaseResponse(new CommonInfo("403","Access token not exist"));
+                    response.getWriter().print(JSONObject.toJSONString(result));
                     return false;
                 }else {
                     //request.setAttribute(Constants.REQ_SESSION_USER_ID_KEY, validResult);

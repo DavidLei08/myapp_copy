@@ -29,9 +29,11 @@ public class ControllerExceptionHandler {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public String exceptionHandler(MethodArgumentNotValidException ex) {
+    public BaseResponse exceptionHandler(MethodArgumentNotValidException ex) {
         logger.error(ex.getMessage());
-        return ex.getMessage();
+        BaseResponse result =new BaseResponse();
+        result.setCommonInfo(HttpStatus.BAD_REQUEST.toString(),ex.getMessage());
+        return result;
     }
 
     /**
@@ -42,9 +44,11 @@ public class ControllerExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(value = APIException.class)
-    public String apiExceptionHandler(APIException ex, HttpServletResponse response) {
+    public BaseResponse apiExceptionHandler(APIException ex, HttpServletResponse response) {
         response.setStatus(ex.getStatus());
         logger.error(ex.getErrMsg());
-        return ex.getErrMsg();
+        BaseResponse result =new BaseResponse();
+        result.setCommonInfo(ex.getStatus()+"",ex.getErrMsg());
+        return result;
     }
 }

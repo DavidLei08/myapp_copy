@@ -15,13 +15,13 @@ public class PostInputForm implements Serializable {
     private static final long serialVersionUID = -3253216958845154328L;
 
     @NotEmpty
-    @Size(min = 1,max = 32)
+    @Size(min = 1,max = 100)
     private String postTitle;
 
     private String postType;
 
     @NotEmpty
-    @Size(min = 1,max =1000)
+    @Size(min = 1,max =2000)
     private String postContent;
 
     public String getPostTitle() {
