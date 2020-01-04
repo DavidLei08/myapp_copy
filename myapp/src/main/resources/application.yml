@@ -26,3 +26,10 @@ spring.profiles.active: dev
 jp.co.nttdata.myapp:
   refreshToken.expirationInterval: 5400000
   accessToken.expirationInterval: 86400000
+
+spring:
+  mail:
+    host: smtp.163.com
+    port:
+    username: medicialbbs@163.com
+    password: root12345

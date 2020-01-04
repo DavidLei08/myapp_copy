@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * @author chao11.lei
+ * @author David.lei
  * @version 1.0
  * spring-boot启动类
  */
