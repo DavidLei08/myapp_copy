@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>yimcarson</title>
+    <style>
+        body {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #main {
+            text-align: center;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<center><h1 style="color: #6250ff;size: 75pt">MBBS</h1></center>
+<hr color="blue">
+<div id="main">
+    <h4>Welcome to <span th:text="${project}"></span></h4>
+
+    <h4>Power -By <span th:text=" ${author}"></span></h4>
+        <h4>Your Verification Code is
+        <a href="#"><span th:text="${code}" style="color:blue"></span></a></h4>
+</div>
+</body>
+</html>
