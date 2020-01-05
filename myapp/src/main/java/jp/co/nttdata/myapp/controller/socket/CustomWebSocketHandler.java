@@ -1,11 +1,11 @@
 package jp.co.nttdata.myapp.controller.socket;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class CustomWebSocketHandler extends TextWebSocketHandler implements WebS
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         logger.info("成功建立websocket-spring连接");
         String mchNo = getMchNo(session);
-        if (StringUtils.isNotEmpty(mchNo)) {
+        if (!StringUtils.isEmpty(mchNo)) {
             users.put(mchNo, session);
             session.sendMessage(new TextMessage("成功建立websocket-spring连接"));
             logger.info("用户标识：{}，Session：{}", mchNo, session.toString());

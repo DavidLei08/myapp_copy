@@ -1,6 +1,7 @@
 package jp.co.nttdata.myapp;
 
 import jp.co.nttdata.myapp.service.mail.MailService;
+import jp.co.nttdata.myapp.service.phone.message.SendMessageService;
 import jp.co.nttdata.myapp.utils.ip.IPAddrUtil;
 import jp.co.nttdata.myapp.utils.ip.IpAddrFormatException;
 import jp.co.nttdata.myapp.utils.redis.RedisUtil;
@@ -30,6 +31,8 @@ public class MyappApplicationTests {
 	@Autowired
 	private MailService mailService;
 
+	@Autowired
+	private SendMessageService sendMessageService;
 	@Test
 	public void contextLoads() {
 		String to = "2686849744@qq.com";
@@ -39,4 +42,9 @@ public class MyappApplicationTests {
 						replaceAll("-","").substring(0,4));
 	}
 
+	@Test
+	public void testSendSmsMessage(){
+		sendMessageService.sendphoneVoiceMessage("5201","15956953945");
+		sendMessageService.sendPhoneMessage("5201","15705505008");
+	}
 }
