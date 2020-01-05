@@ -1,21 +1,12 @@
 package jp.co.nttdata.myapp.utils.json;
 
-import net.sf.json.JSONObject;
 
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * JSON对象转换工具类.
  */
 public class JsonTransferUtil {
-    /**
-     * java对象转json对象.
-     * @param o
-     * @return
-     */
-    public static JSONObject getJSONObject(Object o){
-        JSONObject jsonObject = JSONObject.fromObject(o);;
-        return jsonObject;
-    }
 
     /**
      * java对象转json字符串.
@@ -23,8 +14,8 @@ public class JsonTransferUtil {
      * @return
      */
     public static String getJSONStr(Object o){
-        JSONObject jsonObject = JSONObject.fromObject(o);;
-        return jsonObject.toString();
+
+        return JSONObject.toJSONString(o);
     }
 
     /**
@@ -35,10 +26,9 @@ public class JsonTransferUtil {
      * @return
      */
     public static <T> T getJSONStrToObject(String jsonStr,Class<T> t)  {
-        JSONObject jsonobject = JSONObject.fromObject(jsonStr);
+        JSONObject jsonobject = JSONObject.parseObject(jsonStr);
 
-        T object = (T)JSONObject.toBean(jsonobject,t);
-
+        T object = (T)JSONObject.toJavaObject(jsonobject,t);
         return  object;
     }
 
@@ -48,8 +38,16 @@ public class JsonTransferUtil {
      * @return
      */
     public static JSONObject getStrToJSONObject(String jsonStr){
-        JSONObject jsonobject = JSONObject.fromObject(jsonStr);
+        JSONObject jsonobject = JSONObject.parseObject(jsonStr);
         return jsonobject;
     }
 
+    /**
+     * json对象转字符串.
+     * @param object
+     * @return
+     */
+    public static String getJsonObjectToStr(JSONObject object){
+        return object.toJSONString();
+    }
 }

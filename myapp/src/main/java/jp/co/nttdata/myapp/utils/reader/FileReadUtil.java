@@ -5,7 +5,7 @@ import java.io.*;
 
 
 public class FileReadUtil {
-    public static String  getStringForFile(String path){
+    public static String  getStringFormFile(String path){
         String str="";
         FileInputStream fis =null;
         InputStreamReader isr = null;
